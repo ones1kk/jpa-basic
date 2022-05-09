@@ -60,8 +60,6 @@ public class JpaMain {
 //            em.persist(member2);
 //            System.out.println("===========================");
 
-
-
 //            Member findMember = em.find(Member.class, 150L);
 //            findMember.setName("ZZZZZZ");
 
