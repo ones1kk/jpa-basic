@@ -28,11 +28,13 @@ public class JpaMain {
 
             // write board
             Board board = new Board();
-//            board.setUser(user);
+            board.setUser(user);
             board.setTitle("title1");
             board.setContent("content1");
 
             System.out.println("========board = " + board);
+
+            System.out.println(board.getUser());
 
             em.persist(board);
 

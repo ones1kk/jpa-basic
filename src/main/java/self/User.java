@@ -19,10 +19,18 @@ public class User {
     private String userId;
     private String userName;
 
-    @OneToOne
-    @JoinColumn(name = "board_no")
+    @OneToOne(mappedBy = "user")
     private Board board;
 
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", userId='" + userId + '\'' +
+            ", userName='" + userName + '\'' +
+            ", board=" + board +
+            '}';
+    }
 
     public Long getId() {
         return id;
