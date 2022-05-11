@@ -7,15 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class OrderItem {
-
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
-    //    @Column(name = "ORDER_ID")
+//    @Column(name = "ORDER_ID")
 //    private Long orderId;
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
