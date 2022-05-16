@@ -1,5 +1,8 @@
 package jpabook.jpashop;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -37,6 +40,24 @@ public class JpaMain {
 
             em.persist(board);
             em.persist(board1);
+
+            em.flush();
+            em.clear();
+
+            Board findBoard = em.find(Board.class, board1.getId());
+            User findUserByBoardNo = findBoard.getUser();
+            System.out.println("findUserByBoardNo.getUserName() = " + findUserByBoardNo.getUserName());
+
+
+            em.flush();
+            em.clear();
+
+            User findUser = em.find(User.class, user.getId());
+            System.out.println("============================================================");
+            findUser.getBoards().forEach(brd -> {
+                System.out.println(brd.getTitle());
+                System.out.println(brd.getContent());
+            });
 
             // write comment
 
