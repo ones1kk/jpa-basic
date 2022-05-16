@@ -7,12 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import jpabook.jpashop.domain.Member;
 
 @Entity
 public class Comment {
+
     @Id
     @GeneratedValue
     @Column(name = "comment_no")
