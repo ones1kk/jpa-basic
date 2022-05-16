@@ -35,8 +35,6 @@ public class JpaMain {
             board1.setTitle("title2");
             board1.setContent("content2");
 
-
-
             em.persist(board);
             em.persist(board1);
 
