@@ -1,10 +1,14 @@
 package self;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,18 +23,8 @@ public class User {
     private String userId;
     private String userName;
 
-    @OneToOne(mappedBy = "user")
-    private Board board;
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", userId='" + userId + '\'' +
-            ", userName='" + userName + '\'' +
-            ", board=" + board +
-            '}';
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -56,11 +50,11 @@ public class User {
         this.userId = userId;
     }
 
-    public Board getBoard() {
-        return board;
+    public List<Board> getBoards() {
+        return boards;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
     }
 }

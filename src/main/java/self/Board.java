@@ -1,10 +1,13 @@
 package self;
 
+import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,14 +22,9 @@ public class Board {
 
     private String content;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
-
-//    @OneToMany(mappedBy = "comment")
-////    @JoinColumn(name = "board_no")
-//    private List<Comment> comments = new ArrayList<>();
-
 
     public Long getId() {
         return id;
@@ -56,7 +54,7 @@ public class Board {
         return user;
     }
 
-    public void setUser(User user) {
+    public void addUser(User user) {
         this.user = user;
     }
 

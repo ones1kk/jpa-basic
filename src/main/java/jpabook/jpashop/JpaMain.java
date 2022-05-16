@@ -24,19 +24,21 @@ public class JpaMain {
 
             em.persist(user);
 
-            System.out.println("user = " + user);
-
             // write board
             Board board = new Board();
-            board.setUser(user);
+            board.addUser(user);
             board.setTitle("title1");
             board.setContent("content1");
 
-            System.out.println("========board = " + board);
+            Board board1 = new Board();
+            board1.addUser(user);
+            board1.setTitle("title2");
+            board1.setContent("content2");
 
-            System.out.println(board.getUser());
+
 
             em.persist(board);
+            em.persist(board1);
 
             // write comment
 
