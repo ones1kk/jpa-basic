@@ -1,10 +1,12 @@
 package jpabook.jpashop;
 
+import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import self.Board;
+import self.Comment;
 import self.User;
 
 public class JpaMain {
@@ -18,20 +20,25 @@ public class JpaMain {
 
         try {
             // sign up
-            User user = new User();
-            user.setUserId("user1");
-            user.setUserName("test");
+            User user1 = new User();
+            user1.setUserId("user1");
+            user1.setUserName("test1");
 
-            em.persist(user);
+            User user2 = new User();
+            user2.setUserId("user2");
+            user2.setUserName("test2");
+
+            em.persist(user1);
+            em.persist(user2);
 
             // write board
             Board board = new Board();
-            board.addUser(user);
+            board.addUser(user1);
             board.setTitle("title1");
             board.setContent("content1");
 
             Board board1 = new Board();
-            board1.addUser(user);
+            board1.addUser(user1);
             board1.setTitle("title2");
             board1.setContent("content2");
 
@@ -49,7 +56,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            User findUser = em.find(User.class, user.getId());
+            User findUser = em.find(User.class, user1.getId());
             System.out.println("============================================================");
             findUser.getBoards().forEach(brd -> {
                 System.out.println(brd.getTitle());
@@ -57,16 +64,20 @@ public class JpaMain {
             });
 
             // write comment
+            Comment comment1 = new Comment();
+            comment1.setDateTime(LocalDateTime.now());
+            comment1.setBoard(board1);
+            comment1.setComment("comment1");
+            comment1.setUser(user1);
 
-//            Comment comment = new Comment();
-////            comment.setUser(user);
-//            comment.setComment("comment1");
-//            comment.setBoard(board);
-//            comment.setDateTime(LocalDateTime.now());
-//
-//            System.out.println("comment = " + comment);
-//
-//            em.persist(comment);
+            em.flush();
+            em.clear();
+
+            em.persist(comment1);
+            System.out.println("============================================================");
+            user2.getComments().forEach(cmt -> {
+                System.out.println(cmt.getComment());
+            });
 
             tx.commit();
         } catch (Exception e) {
