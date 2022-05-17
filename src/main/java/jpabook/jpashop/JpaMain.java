@@ -45,16 +45,12 @@ public class JpaMain {
             em.persist(board);
             em.persist(board1);
 
-            em.flush();
-            em.clear();
+
 
             Board findBoard = em.find(Board.class, board1.getId());
             User findUserByBoardNo = findBoard.getUser();
             System.out.println(
                 "findUserByBoardNo.getUserName() = " + findUserByBoardNo.getUserName());
-
-            em.flush();
-            em.clear();
 
             User findUser = em.find(User.class, user1.getId());
             System.out.println("============================================================");
@@ -70,12 +66,10 @@ public class JpaMain {
             comment1.setComment("comment1");
             comment1.setUser(user1);
 
-            em.flush();
-            em.clear();
 
             em.persist(comment1);
             System.out.println("============================================================");
-            user2.getComments().forEach(cmt -> {
+            user1.getComments().forEach(cmt -> {
                 System.out.println(cmt.getComment());
             });
 
