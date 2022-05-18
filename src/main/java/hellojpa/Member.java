@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 //    name = "MEMBER_SEQ_GENERATOR",
 //    table = "MY_SEQUENCES",
 //    pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.TABLE,
@@ -33,7 +33,7 @@ public class Member extends BaseEntity{
     private Team team;
 
     @OneToOne
-    @JoinColumn(name="LOCKER_ID")
+    @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
 
