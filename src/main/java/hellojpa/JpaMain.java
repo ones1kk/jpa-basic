@@ -1,5 +1,6 @@
 package hellojpa;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,10 +16,6 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Album album = new Album();
-            album.setName("aa");
-            album.setArtist("aa");
-            album.setPrice(100);
             Team team = new Team();
             team.setName("team");
 
@@ -54,7 +51,11 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            em.persist(album);
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildren().remove(0);
+
+
+
 
             tx.commit();
         } catch (Exception e) {
