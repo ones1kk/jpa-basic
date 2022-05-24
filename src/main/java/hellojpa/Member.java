@@ -1,6 +1,8 @@
 package hellojpa;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,11 +15,9 @@ import javax.persistence.ManyToOne;
 //    name = "MEMBER_SEQ_GENERATOR",
 //    table = "MY_SEQUENCES",
 //    pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-public class Member extends BaseEntity {
+public class Member {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.TABLE,
-//        generator = "MEMBER_SEQ_GENERATOR")
     @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
@@ -25,13 +25,33 @@ public class Member extends BaseEntity {
     @Column(name = "USERNAME", nullable = false)
     private String username;
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-//    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    // Period
+    @Embedded
+   private Period workPeriod;
+
+    // Address
+    @Embedded
+    private Address homeAddress;
+
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
+
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 
     public Long getId() {
         return id;

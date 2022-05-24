@@ -16,42 +16,23 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("team");
+            Address address = new Address("city", "street", "zipcode");
 
-            em.persist(team);
+            Member member1 = new Member();
+            member1.setUsername("hello1");
+            member1.setHomeAddress(address);
 
-            Member member = new Member();
-            member.setUsername("member");
-            member.changeTeam(team);
+            Member member2 = new Member();
+            member2.setUsername("hello2");
+            member2.setHomeAddress(address);
 
-            em.persist(member);
+            em.persist(member1);
+            em.persist(member2);
 
-            em.flush();
-            em.clear();
+            Address newAddress = new Address("newCity", address.getStreet(), address.getZipcode());
+            member1.setHomeAddress(newAddress);
 
-            List<Member> members = em.createQuery("select m from Member m",
-                Member.class).getResultList();
-
-            // SQL: select * from member
-            // SQL: select ( from Team where TEAM_ID  = xxx
-
-            Child child1 = new Child();
-            Child child2 = new Child();
-
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-//            em.persist(child1);
-//            em.persist(child2);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildren().remove(0);
+//            member1.getHomeAddress().setCity("newCity");
 
             tx.commit();
         } catch (Exception e) {
