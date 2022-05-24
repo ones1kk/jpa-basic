@@ -43,7 +43,6 @@ public class JpaMain {
             parent.addChild(child1);
             parent.addChild(child2);
 
-
             em.persist(parent);
 //            em.persist(child1);
 //            em.persist(child2);
@@ -53,9 +52,6 @@ public class JpaMain {
 
             Parent findParent = em.find(Parent.class, parent.getId());
             findParent.getChildren().remove(0);
-
-
-
 
             tx.commit();
         } catch (Exception e) {
