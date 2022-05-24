@@ -1,6 +1,5 @@
 package hellojpa;
 
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -31,7 +30,7 @@ public class Member {
 
     // Period
     @Embedded
-   private Period workPeriod;
+    private Period workPeriod;
 
     // Address
     @Embedded
