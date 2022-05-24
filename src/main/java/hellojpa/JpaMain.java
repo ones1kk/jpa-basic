@@ -19,6 +19,40 @@ public class JpaMain {
             album.setName("aa");
             album.setArtist("aa");
             album.setPrice(100);
+            Team team = new Team();
+            team.setName("team");
+
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member");
+            member.changeTeam(team);
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            List<Member> members = em.createQuery("select m from Member m",
+                Member.class).getResultList();
+
+            // SQL: select * from member
+            // SQL: select ( from Team where TEAM_ID  = xxx
+
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+
+            em.persist(parent);
+//            em.persist(child1);
+//            em.persist(child2);
+
+            em.flush();
+            em.clear();
 
             em.persist(album);
 
