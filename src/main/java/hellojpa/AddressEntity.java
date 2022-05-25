@@ -7,7 +7,8 @@ import javax.persistence.Id;
 @Entity(name = "ADDRESS")
 public class AddressEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private Address address;

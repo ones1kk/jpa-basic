@@ -37,7 +37,8 @@ public class JpaMain {
 
             System.out.println("============== START ============== ");
             List<AddressEntity> addressHistory = findMember.getAddressHistory();
-            addressHistory.forEach(it-> System.out.println("it.getCity() = " + it.getAddress().getCity()));
+            addressHistory.forEach(
+                it -> System.out.println("it.getCity() = " + it.getAddress().getCity()));
 
             System.out.println("============== START ============== ");
             Set<String> favoriteFoods = findMember.getFavoriteFoods();
@@ -54,8 +55,6 @@ public class JpaMain {
             System.out.println("============== START ============== ");
 //            findMember.getAddressHistory().remove(new AddressEntity("old1", "street1", "zipcode1"));
 //            findMember.getAddressHistory().add(new AddressEntity("newCity1", "street1", "zipcode1"));
-
-
 
             tx.commit();
         } catch (Exception e) {
