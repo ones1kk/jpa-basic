@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,23 +17,45 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Address address = new Address("city", "street", "zipcode");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setHomeAddress(new Address("homeCity", "street1", "zipcode1"));
 
-            Member member1 = new Member();
-            member1.setUsername("hello1");
-            member1.setHomeAddress(address);
+            member.getFavoriteFoods().add("chicken");
+            member.getFavoriteFoods().add("pizza");
 
-            Member member2 = new Member();
-            member2.setUsername("hello2");
-            member2.setHomeAddress(address);
+            member.getAddressHistory().add(new AddressEntity("old1", "street1", "zipcode1"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street1", "zipcode1"));
 
-            em.persist(member1);
-            em.persist(member2);
+            em.persist(member);
 
-            Address newAddress = new Address("newCity", address.getStreet(), address.getZipcode());
-            member1.setHomeAddress(newAddress);
+            em.flush();
+            em.clear();
 
-//            member1.getHomeAddress().setCity("newCity");
+            System.out.println("============== START ============== ");
+            Member findMember = em.find(Member.class, member.getId());
+
+            System.out.println("============== START ============== ");
+            List<AddressEntity> addressHistory = findMember.getAddressHistory();
+            addressHistory.forEach(it-> System.out.println("it.getCity() = " + it.getAddress().getCity()));
+
+            System.out.println("============== START ============== ");
+            Set<String> favoriteFoods = findMember.getFavoriteFoods();
+            favoriteFoods.forEach(System.out::println);
+
+            System.out.println("============== START ============== ");
+            Address a = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getCity()));
+
+            System.out.println("============== START ============== ");
+            findMember.getFavoriteFoods().remove("pizza");
+            findMember.getFavoriteFoods().add("pork");
+
+            System.out.println("============== START ============== ");
+//            findMember.getAddressHistory().remove(new AddressEntity("old1", "street1", "zipcode1"));
+//            findMember.getAddressHistory().add(new AddressEntity("newCity1", "street1", "zipcode1"));
+
+
 
             tx.commit();
         } catch (Exception e) {
